@@ -36,7 +36,10 @@ public class PlayerMovement : MonoBehaviour
 
     void RotatePlayer(float horizontal, float vertical)
     {
+        //float heading = Mathf.Atan2(playerRigidbody.velocity.x, playerRigidbody.velocity.z);
+        //Quaternion rotation = Quaternion.Euler(0, heading, 0);
 
+        //playerRigidbody.MoveRotation(rotation);
     }
 
     void AnimatePlayer(float horizontal, float vertical)
