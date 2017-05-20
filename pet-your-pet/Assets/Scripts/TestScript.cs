@@ -11,8 +11,13 @@ public class TestScript : MonoBehaviour
 
     void Update()
     {
-        transform.LookAt(target);
-        //ReactToInput();
+        //transform.LookAt(target);
+        ReactToInput();
+    }
+
+    private void OnMouseDown()
+    {
+        Debug.Log("Clicked on an object");
     }
 
     private void ReactToInput()

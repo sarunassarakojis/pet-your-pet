@@ -20,6 +20,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             agent.updatePosition = true;
         }
 
+        private void OnMouseDown()
+        {
+            // TODO: Move this to a seperate script
+            Debug.Log("Clicked on a cat");
+        }
 
         private void Update()
         {
@@ -31,7 +36,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             else
                 character.Move(Vector3.zero, false, false);
         }
-
 
         public void SetTarget(Transform target)
         {

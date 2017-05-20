@@ -48,7 +48,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             m_OrigGroundCheckDistance = m_GroundCheckDistance;
         }
 
-
         public void Move(Vector3 move, bool crouch, bool jump)
         {
             // convert the world relative moveInput vector into a local-relative
@@ -132,7 +131,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
             m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
         }
-
 
         void HandleGroundedMovement(bool crouch, bool jump)
         {
