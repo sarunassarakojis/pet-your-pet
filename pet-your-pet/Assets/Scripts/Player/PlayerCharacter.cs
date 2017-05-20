@@ -38,7 +38,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         CapsuleCollider m_Capsule;
         bool m_Crouching;
 
-
         void Start()
         {
             m_Animator = GetComponent<Animator>();
@@ -51,10 +50,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             m_OrigGroundCheckDistance = m_GroundCheckDistance;
         }
 
-
         public void Move(Vector3 move, bool crouch, bool jump)
         {
-
             // convert the world relative moveInput vector into a local-relative
             // turn amount and forward amount required to head in the desired
             // direction.
@@ -83,7 +80,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             // send input and other state parameters to the animator
             UpdateAnimator(move);
         }
-
 
         void ScaleCapsuleForCrouching(bool crouch)
         {
@@ -123,7 +119,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             }
         }
 
-
         void UpdateAnimator(Vector3 move)
         {
             // update the animator parameters
@@ -135,18 +130,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             {
                 m_Animator.SetFloat("Jump", m_Rigidbody.velocity.y);
             }
-
-            // calculate which leg is behind, so as to leave that leg trailing in the jump animation
-            // (This code is reliant on the specific run cycle offset in our animations,
-            // and assumes one leg passes the other at the normalized clip times of 0.0 and 0.5)
-            //float runCycle =
-            //    Mathf.Repeat(
-            //        m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime + m_RunCycleLegOffset, 1);
-            //float jumpLeg = (runCycle < k_Half ? 1 : -1) * m_ForwardAmount;
-            //if (m_IsGrounded)
-            //{
-            //    m_Animator.SetFloat("JumpLeg", jumpLeg);
-            //}
 
             // the anim speed multiplier allows the overall speed of walking/running to be tweaked in the inspector,
             // which affects the movement speed because of the root motion.
@@ -161,7 +144,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             }
         }
 
-
         void HandleAirborneMovement()
         {
             // apply extra gravity from multiplier:
@@ -170,7 +152,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
             m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
         }
-
 
         void HandleGroundedMovement(bool crouch, bool jump)
         {
@@ -192,7 +173,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime, 0);
         }
 
-
         public void OnAnimatorMove()
         {
             // we implement this function to override the default root motion.
@@ -206,7 +186,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                 m_Rigidbody.velocity = v;
             }
         }
-
 
         void CheckGroundStatus()
         {

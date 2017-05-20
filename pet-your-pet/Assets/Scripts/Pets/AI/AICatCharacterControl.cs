@@ -7,14 +7,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
     [RequireComponent(typeof(CatCharacter))]
     public class AICatCharacterControl : MonoBehaviour
     {
-        public UnityEngine.AI.NavMeshAgent agent { get; private set; }             // the navmesh agent required for the path finding
-        public CatCharacter character { get; private set; } // the character we are controlling
-        public Transform target;                                    // target to aim for
-
+        public UnityEngine.AI.NavMeshAgent agent { get; private set; }
+        public CatCharacter character { get; private set; }
+        public Transform target;
 
         private void Start()
         {
-            // get the components on the object we need ( should not be null due to require component so no need to check )
             agent = GetComponentInChildren<UnityEngine.AI.NavMeshAgent>();
             character = GetComponent<CatCharacter>();
 
