@@ -2,14 +2,17 @@
 
 public class ResponsiveCharacter : MonoBehaviour
 {
+    public int timesResponded { get; private set; }
+
     void Start()
     {
-        
+        timesResponded = 0;
     }
 
     private void OnMouseDown()
     {
-        Debug.Log("Clicked on a: " + gameObject.name);
+        timesResponded++;
+        Debug.Log("Clicked on a: " + gameObject.name + " count: " + timesResponded);
     }
 
     void Update()

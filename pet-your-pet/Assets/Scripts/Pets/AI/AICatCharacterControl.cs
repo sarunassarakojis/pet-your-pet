@@ -9,12 +9,17 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         public UnityEngine.AI.NavMeshAgent agent { get; private set; }
         public PetCharacter character { get; private set; }
         public float distanceWhenToMove = 10f;
+        public int friendlinessThreshold = 20;
         public Transform target;
+        public Transform anotherTarget;
+
+        private ResponsiveCharacter responsiveCharacter;
 
         private void Start()
         {
             agent = GetComponentInChildren<UnityEngine.AI.NavMeshAgent>();
             character = GetComponent<PetCharacter>();
+            responsiveCharacter = GetComponent<ResponsiveCharacter>();
 
             agent.updateRotation = false;
             agent.updatePosition = true;
@@ -22,23 +27,33 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Update()
         {
-            if (target != null)
+            float remainingDistance = Vector3.Magnitude(target.position - transform.position);
+            bool closeEnough = remainingDistance < distanceWhenToMove;
+            bool isFriendly = responsiveCharacter.timesResponded >= friendlinessThreshold;
+
+            if (remainingDistance > agent.stoppingDistance && closeEnough && isFriendly)
             {
-                agent.SetDestination(target.position);
+                KeepCloseWithTarget();
             }
-
-            float remainingDistance = agent.remainingDistance;
-
-            if (remainingDistance > agent.stoppingDistance && remainingDistance < distanceWhenToMove)
+            else if (closeEnough && !isFriendly)
             {
-                agent.Resume();
-                character.Move(agent.desiredVelocity, false, false);
+                StayAwayFromTarget();
             }
             else
             {
-                agent.Stop();
                 character.Move(Vector3.zero, false, false);
             }
+        }
+
+        private void StayAwayFromTarget()
+        {
+
+        }
+
+        private void KeepCloseWithTarget()
+        {
+            agent.SetDestination(target.position);
+            character.Move(agent.desiredVelocity, false, false);
         }
     }
 }
