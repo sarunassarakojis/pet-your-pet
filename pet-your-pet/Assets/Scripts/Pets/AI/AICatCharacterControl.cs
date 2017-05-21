@@ -11,7 +11,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         public float distanceWhenToMove = 10f;
         public int friendlinessThreshold = 20;
         public Transform target;
-        public Transform anotherTarget;
 
         private ResponsiveCharacter responsiveCharacter;
 
@@ -47,7 +46,13 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void StayAwayFromTarget()
         {
+            transform.rotation = Quaternion.LookRotation(transform.position - target.position);
+            Vector3 runTo = transform.position + transform.forward * 10;
+            UnityEngine.AI.NavMeshHit hit;
 
+            UnityEngine.AI.NavMesh.SamplePosition(runTo, out hit, distanceWhenToMove, -1);
+            agent.SetDestination(hit.position);
+            character.Move(agent.desiredVelocity, false, false);
         }
 
         private void KeepCloseWithTarget()
