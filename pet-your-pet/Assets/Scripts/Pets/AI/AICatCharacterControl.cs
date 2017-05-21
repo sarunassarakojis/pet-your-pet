@@ -41,9 +41,18 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             }
         }
 
-        public void SetTarget(Transform target)
+        private void MoveRandomlyWithinStoppingDistance()
         {
-            this.target = target;
+            Vector3 randomDirection = Random.insideUnitSphere * agent.stoppingDistance;
+            UnityEngine.AI.NavMeshHit meshHit;
+
+            randomDirection += transform.position;
+            UnityEngine.AI.NavMesh.SamplePosition(randomDirection, out meshHit, agent.stoppingDistance, 1);
+
+            Debug.Log("Moving from: " + transform.position + " to: " + meshHit.position);
+
+            agent.SetDestination(meshHit.position);
+            character.Move(agent.desiredVelocity, false, false);
         }
     }
 }
