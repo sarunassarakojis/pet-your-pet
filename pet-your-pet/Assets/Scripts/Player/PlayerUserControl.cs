@@ -1,43 +1,68 @@
-using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
+using UnityEngine.UI;
 
 namespace UnityStandardAssets.Characters.ThirdPerson
 {
     [RequireComponent(typeof(PlayerCharacter))]
     public class PlayerUserControl : MonoBehaviour
     {
+        public Text scoreText;
+
         private PlayerCharacter m_Character; // A reference to the ThirdPersonCharacter on the object
         private Transform m_Cam;                  // A reference to the main camera in the scenes transform
         private Vector3 m_CamForward;             // The current forward direction of the camera
         private Vector3 m_Move;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
-
+        private ResponsiveCharacter[] responsiveCharacters;
 
         private void Start()
         {
-            // get the transform of the main camera
             if (Camera.main != null)
             {
                 m_Cam = Camera.main.transform;
             }
             else
             {
-                Debug.LogWarning(
-                    "Warning: no main camera found. Third person character needs a Camera tagged \"MainCamera\", for camera-relative controls.", gameObject);
-                // we use self-relative controls in this case, which probably isn't what the user wants, but hey, we warned them!
+                Debug.LogWarning("Warning: no main camera found. Third person character needs a Camera tagged \"MainCamera\", for camera-relative controls.", gameObject);
+            }
+
+            GameObject[] pets = GameObject.FindGameObjectsWithTag("Pet");
+            responsiveCharacters = new ResponsiveCharacter[pets.Length];
+
+            for (int i = 0; i < pets.Length; i++)
+            {
+                responsiveCharacters[i] = pets[i].GetComponent<ResponsiveCharacter>();
             }
 
             m_Character = GetComponent<PlayerCharacter>();
+            SetScoreText(0);
         }
 
+        private string GetScoreText(int currentScore)
+        {
+            return "Score: " + currentScore;
+        }
+
+        private void SetScoreText(int currentScore)
+        {
+            scoreText.text = GetScoreText(currentScore);
+        }
 
         private void Update()
         {
+            int score = 0;
+
             if (!m_Jump)
             {
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
+
+            for (int i = 0; i < responsiveCharacters.Length; i++)
+            {
+                score += responsiveCharacters[i].counter;
+            }
+            SetScoreText(score);
         }
 
         private void FixedUpdate()

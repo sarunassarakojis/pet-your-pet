@@ -28,7 +28,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         {
             float remainingDistance = Vector3.Magnitude(target.position - transform.position);
             bool closeEnough = remainingDistance < distanceWhenToMove;
-            bool isFriendly = responsiveCharacter.timesResponded >= friendlinessThreshold;
+            bool isFriendly = responsiveCharacter.counter >= friendlinessThreshold;
 
             if (remainingDistance > agent.stoppingDistance && closeEnough && isFriendly)
             {

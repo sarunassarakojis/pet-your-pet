@@ -2,21 +2,27 @@
 
 public class ResponsiveCharacter : MonoBehaviour
 {
-    public int timesResponded { get; private set; }
+    public int counter { get; private set; }
+    public float secondsBetweenDecrements;
+    public int initialCount;
 
     void Start()
     {
-        timesResponded = 0;
+        counter = initialCount;
+        InvokeRepeating("DecrementCounter", secondsBetweenDecrements, secondsBetweenDecrements);
     }
 
     private void OnMouseDown()
     {
-        timesResponded++;
-        Debug.Log("Clicked on a: " + gameObject.name + " count: " + timesResponded);
+        counter++;
+        Debug.Log("Clicked on a: " + gameObject.name + " count: " + counter);
     }
 
-    void Update()
+    private void DecrementCounter()
     {
-
+        if (counter > 0)
+        {
+            counter--;
+        }
     }
 }
