@@ -3,9 +3,8 @@ using UnityEngine;
 namespace UnityStandardAssets.Characters.ThirdPerson
 {
     [RequireComponent(typeof(Rigidbody))]
-    [RequireComponent(typeof(CapsuleCollider))]
     [RequireComponent(typeof(Animator))]
-    public class CatCharacter : MonoBehaviour
+    public class PetCharacter : MonoBehaviour
     {
         [SerializeField]
         float m_MovingTurnSpeed = 360;

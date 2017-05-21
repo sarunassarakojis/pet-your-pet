@@ -3,18 +3,18 @@ using UnityEngine;
 namespace UnityStandardAssets.Characters.ThirdPerson
 {
     [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
-    [RequireComponent(typeof(CatCharacter))]
+    [RequireComponent(typeof(PetCharacter))]
     public class AICatCharacterControl : MonoBehaviour
     {
         public UnityEngine.AI.NavMeshAgent agent { get; private set; }
-        public CatCharacter character { get; private set; }
+        public PetCharacter character { get; private set; }
         public float distanceWhenToMove = 10f;
         public Transform target;
 
         private void Start()
         {
             agent = GetComponentInChildren<UnityEngine.AI.NavMeshAgent>();
-            character = GetComponent<CatCharacter>();
+            character = GetComponent<PetCharacter>();
 
             agent.updateRotation = false;
             agent.updatePosition = true;
@@ -39,20 +39,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                 agent.Stop();
                 character.Move(Vector3.zero, false, false);
             }
-        }
-
-        private void MoveRandomlyWithinStoppingDistance()
-        {
-            Vector3 randomDirection = Random.insideUnitSphere * agent.stoppingDistance;
-            UnityEngine.AI.NavMeshHit meshHit;
-
-            randomDirection += transform.position;
-            UnityEngine.AI.NavMesh.SamplePosition(randomDirection, out meshHit, agent.stoppingDistance, 1);
-
-            Debug.Log("Moving from: " + transform.position + " to: " + meshHit.position);
-
-            agent.SetDestination(meshHit.position);
-            character.Move(agent.desiredVelocity, false, false);
         }
     }
 }

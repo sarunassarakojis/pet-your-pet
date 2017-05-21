@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
+using UnityStandardAssets.Characters.ThirdPerson;
 
 public class FreeRoamScript : MonoBehaviour
 {
     public float wanderRadius;
     public float wanderTimer;
 
+    private PetCharacter petCharacter;
     private Transform target;
     private UnityEngine.AI.NavMeshAgent agent;
     private float timer;
 
     void Start()
     {
+        petCharacter = GetComponent<PetCharacter>();
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         timer = wanderTimer;
     }
@@ -24,6 +27,7 @@ public class FreeRoamScript : MonoBehaviour
             timer = 0;
 
             agent.SetDestination(RandomNavSphere(transform.position, wanderRadius, -1));
+            petCharacter.Move(agent.desiredVelocity, false, false);
         }
     }
 
