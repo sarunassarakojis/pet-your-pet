@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace UnityStandardAssets.Characters.ThirdPerson
@@ -9,6 +8,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
     {
         public UnityEngine.AI.NavMeshAgent agent { get; private set; }
         public CatCharacter character { get; private set; }
+        public float distanceWhenToMove = 10f;
         public Transform target;
 
         private void Start()
@@ -20,21 +20,25 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             agent.updatePosition = true;
         }
 
-        private void OnMouseDown()
-        {
-            // TODO: Move this to a seperate script
-            Debug.Log("Clicked on a cat");
-        }
-
         private void Update()
         {
             if (target != null)
+            {
                 agent.SetDestination(target.position);
+            }
 
-            if (agent.remainingDistance > agent.stoppingDistance)
+            float remainingDistance = agent.remainingDistance;
+
+            if (remainingDistance > agent.stoppingDistance && remainingDistance < distanceWhenToMove)
+            {
+                agent.Resume();
                 character.Move(agent.desiredVelocity, false, false);
+            }
             else
+            {
+                agent.Stop();
                 character.Move(Vector3.zero, false, false);
+            }
         }
 
         public void SetTarget(Transform target)
