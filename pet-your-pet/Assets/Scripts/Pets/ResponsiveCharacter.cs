@@ -20,9 +20,6 @@ public class ResponsiveCharacter : MonoBehaviour
 
     private void DecrementCounter()
     {
-        if (counter > 0)
-        {
-            counter--;
-        }
+        counter--;
     }
 }
