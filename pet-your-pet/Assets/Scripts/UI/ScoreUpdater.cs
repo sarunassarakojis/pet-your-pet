@@ -68,6 +68,6 @@ public class ScoreUpdater : MonoBehaviour
 
     private void SaveCurrentScore()
     {
-        //PlayerPrefs
+        ScoreManager.Instance.SubmitNewHighscore((int)elapsedTime);
     }
 }
