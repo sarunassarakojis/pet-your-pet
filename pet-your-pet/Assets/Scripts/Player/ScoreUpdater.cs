@@ -46,6 +46,7 @@ public class ScoreUpdater : MonoBehaviour
             {
                 isGameOver = true;
                 gameOverPanel.SetActive(true);
+                SaveCurrentScore();
             }
         }
     }
@@ -63,5 +64,10 @@ public class ScoreUpdater : MonoBehaviour
     private void SetElapsedTimeText(float elapsedTime)
     {
         elapsedTimeText.text = "Score: " + elapsedTime.ToString("0");
+    }
+
+    private void SaveCurrentScore()
+    {
+        //PlayerPrefs
     }
 }
