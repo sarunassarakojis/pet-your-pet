@@ -3,10 +3,12 @@ using UnityEngine.UI;
 
 public class ScoreUpdater : MonoBehaviour
 {
-    public Text scoreText;
-    public Text gameOverText;
+    public Text elapsedTimeText;
+    public Text happinessCounterText;
+    public GameObject gameOverPanel;
 
     private bool isGameOver;
+    private float elapsedTime;
     private ResponsiveCharacter[] responsiveCharacters;
 
     void Start()
@@ -19,39 +21,47 @@ public class ScoreUpdater : MonoBehaviour
             responsiveCharacters[i] = pets[i].GetComponent<ResponsiveCharacter>();
         }
 
-        SetScoreText(0);
-        gameOverText.text = "";
+        SetHappinessCountText(0);
+        SetElapsedTimeText(0f);
         isGameOver = false;
+        elapsedTime = 0f;
     }
 
     void Update()
     {
         if (!isGameOver)
         {
-            int score = 0;
+            int happinessCount = 0;
 
             for (int i = 0; i < responsiveCharacters.Length; i++)
             {
-                score += responsiveCharacters[i].counter;
+                happinessCount += responsiveCharacters[i].counter;
             }
 
-            SetScoreText(score);
+            elapsedTime += Time.deltaTime;
+            SetHappinessCountText(happinessCount);
+            SetElapsedTimeText(elapsedTime);
 
-            if (score <= 0)
+            if (happinessCount <= 0)
             {
                 isGameOver = true;
-                gameOverText.text = "Game Over";
+                gameOverPanel.SetActive(true);
             }
         }
     }
 
-    private string GetScoreText(int currentScore)
+    private string GetHappinessCountText(int currentScore)
     {
-        return "Score: " + currentScore;
+        return "Happiness: " + currentScore;
     }
 
-    private void SetScoreText(int currentScore)
+    private void SetHappinessCountText(int currentScore)
     {
-        scoreText.text = GetScoreText(currentScore);
+        happinessCounterText.text = GetHappinessCountText(currentScore);
+    }
+
+    private void SetElapsedTimeText(float elapsedTime)
+    {
+        elapsedTimeText.text = "Score: " + elapsedTime.ToString("0");
     }
 }
