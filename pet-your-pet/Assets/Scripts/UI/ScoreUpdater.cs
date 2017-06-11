@@ -10,13 +10,13 @@ public class ScoreUpdater : MonoBehaviour
     private bool isGameOver;
     private float elapsedTime;
     private ResponsiveCat[] responsiveCats;
-    private PlayerUserControl playerControl;
+    private AIControlDisabler controlDisabler;
 
     void Start()
     {
         GameObject[] pets = GameObject.FindGameObjectsWithTag("Cat");
         responsiveCats = new ResponsiveCat[pets.Length];
-        playerControl = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerUserControl>();
+        controlDisabler = new AIControlDisabler();
 
         for (int i = 0; i < pets.Length; i++)
         {
@@ -54,9 +54,10 @@ public class ScoreUpdater : MonoBehaviour
     private void EndGame()
     {
         isGameOver = true;
-        //playerControl.enabled = false;
         gameOverPanel.SetActive(true);
 
+        controlDisabler.DisableAIBearControl();
+        controlDisabler.DisablePlayerControl();
         SaveCurrentScore();
     }
 

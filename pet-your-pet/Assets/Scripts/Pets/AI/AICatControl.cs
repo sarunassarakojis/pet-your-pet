@@ -6,14 +6,15 @@ public class AICatControl : MonoBehaviour
 {
     public float distanceWhenToMove = 10f;
     public int friendlinessThreshold = 20;
-    public Transform target;
 
+    private Transform target;
     private NavMeshAgent agent;
     private ResponsiveCat responsiveCharacter;
     private Animator animator;
 
     private void Start()
     {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponentInChildren<NavMeshAgent>();
         responsiveCharacter = GetComponent<ResponsiveCat>();
         animator = GetComponent<Animator>();
