@@ -16,13 +16,9 @@ public class AIBearControl : MonoBehaviour
 
     void Update()
     {
-        if (playerHealth.currentHealth > 0)
+        if (navAgent.enabled && playerHealth.currentHealth > 0)
         {
             navAgent.SetDestination(player.position);
-        }
-        else
-        {
-            navAgent.enabled = false;
         }
     }
 }

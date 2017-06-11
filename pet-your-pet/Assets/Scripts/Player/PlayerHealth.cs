@@ -11,7 +11,6 @@ public class PlayerHealth : MonoBehaviour
     public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
     public int currentHealth;
 
-    private PlayerUserControl playerControl;
     private AudioSource playerAudio;
     private bool isDead;
     private bool damaged;
@@ -19,8 +18,6 @@ public class PlayerHealth : MonoBehaviour
     void Awake()
     {
         playerAudio = GetComponent<AudioSource>();
-        playerControl = GetComponent<PlayerUserControl>();
-
         currentHealth = startingHealth;
     }
 
@@ -43,7 +40,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= amount;
         healthSlider.value = currentHealth;
 
-        playerAudio.Play();
+        //playerAudio.Play();
 
         if (currentHealth <= 0 && !isDead)
         {
@@ -54,9 +51,8 @@ public class PlayerHealth : MonoBehaviour
     void Death()
     {
         isDead = true;
-        playerControl.enabled = false;
 
-        playerAudio.clip = deathClip;
-        playerAudio.Play();
+        //playerAudio.clip = deathClip;
+        //playerAudio.Play();
     }
 }

@@ -10,6 +10,7 @@ public class ScoreUpdater : MonoBehaviour
     private bool isGameOver;
     private float elapsedTime;
     private ResponsiveCat[] responsiveCats;
+    private PlayerHealth playerHealth;
     private AIControlDisabler controlDisabler;
 
     void Start()
@@ -17,6 +18,7 @@ public class ScoreUpdater : MonoBehaviour
         GameObject[] pets = GameObject.FindGameObjectsWithTag("Cat");
         responsiveCats = new ResponsiveCat[pets.Length];
         controlDisabler = new AIControlDisabler();
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
 
         for (int i = 0; i < pets.Length; i++)
         {
@@ -44,7 +46,7 @@ public class ScoreUpdater : MonoBehaviour
             SetHappinessCountText(happinessCount);
             SetElapsedTimeText(elapsedTime);
 
-            if (happinessCount <= 0)
+            if (happinessCount <= 0 || playerHealth.currentHealth <= 0)
             {
                 EndGame();
             }
