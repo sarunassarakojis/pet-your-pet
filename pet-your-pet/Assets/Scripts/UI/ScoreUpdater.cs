@@ -10,11 +10,13 @@ public class ScoreUpdater : MonoBehaviour
     private bool isGameOver;
     private float elapsedTime;
     private ResponsiveCat[] responsiveCats;
+    private PlayerUserControl playerControl;
 
     void Start()
     {
         GameObject[] pets = GameObject.FindGameObjectsWithTag("Cat");
         responsiveCats = new ResponsiveCat[pets.Length];
+        playerControl = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerUserControl>();
 
         for (int i = 0; i < pets.Length; i++)
         {
@@ -44,11 +46,18 @@ public class ScoreUpdater : MonoBehaviour
 
             if (happinessCount <= 0)
             {
-                isGameOver = true;
-                gameOverPanel.SetActive(true);
-                SaveCurrentScore();
+                EndGame();
             }
         }
+    }
+
+    private void EndGame()
+    {
+        isGameOver = true;
+        //playerControl.enabled = false;
+        gameOverPanel.SetActive(true);
+
+        SaveCurrentScore();
     }
 
     private string GetHappinessCountText(int currentScore)
