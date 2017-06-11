@@ -5,15 +5,24 @@ public class AIBearControl : MonoBehaviour
 {
     private Transform player;
     private NavMeshAgent navAgent;
+    private PlayerHealth playerHealth;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerHealth = player.GetComponent<PlayerHealth>();
         navAgent = GetComponent<NavMeshAgent>();
     }
 
     void Update()
     {
-        navAgent.SetDestination(player.position);
+        if (playerHealth.currentHealth > 0)
+        {
+            navAgent.SetDestination(player.position);
+        }
+        else
+        {
+            navAgent.enabled = false;
+        }
     }
 }
