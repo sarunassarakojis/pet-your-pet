@@ -13,7 +13,7 @@ public class ScoreUpdater : MonoBehaviour
 
     void Start()
     {
-        GameObject[] pets = GameObject.FindGameObjectsWithTag("Pet");
+        GameObject[] pets = GameObject.FindGameObjectsWithTag("Cat");
         responsiveCats = new ResponsiveCat[pets.Length];
 
         for (int i = 0; i < pets.Length; i++)
