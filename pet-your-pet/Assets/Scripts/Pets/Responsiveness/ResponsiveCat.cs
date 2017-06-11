@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ResponsiveCharacter : MonoBehaviour
+public class ResponsiveCat : MonoBehaviour
 {
     public int counter { get; private set; }
     public float secondsBetweenDecrements;
@@ -10,9 +10,9 @@ public class ResponsiveCharacter : MonoBehaviour
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
         counter = initialCount;
         InvokeRepeating("DecrementCounter", secondsBetweenDecrements, secondsBetweenDecrements);
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnMouseDown()

@@ -9,16 +9,16 @@ public class ScoreUpdater : MonoBehaviour
 
     private bool isGameOver;
     private float elapsedTime;
-    private ResponsiveCharacter[] responsiveCharacters;
+    private ResponsiveCat[] responsiveCats;
 
     void Start()
     {
         GameObject[] pets = GameObject.FindGameObjectsWithTag("Pet");
-        responsiveCharacters = new ResponsiveCharacter[pets.Length];
+        responsiveCats = new ResponsiveCat[pets.Length];
 
         for (int i = 0; i < pets.Length; i++)
         {
-            responsiveCharacters[i] = pets[i].GetComponent<ResponsiveCharacter>();
+            responsiveCats[i] = pets[i].GetComponent<ResponsiveCat>();
         }
 
         SetHappinessCountText(0);
@@ -33,9 +33,9 @@ public class ScoreUpdater : MonoBehaviour
         {
             int happinessCount = 0;
 
-            for (int i = 0; i < responsiveCharacters.Length; i++)
+            for (int i = 0; i < responsiveCats.Length; i++)
             {
-                happinessCount += responsiveCharacters[i].counter;
+                happinessCount += responsiveCats[i].counter;
             }
 
             elapsedTime += Time.deltaTime;

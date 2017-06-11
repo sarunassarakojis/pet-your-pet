@@ -12,13 +12,13 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         public int friendlinessThreshold = 20;
         public Transform target;
 
-        private ResponsiveCharacter responsiveCharacter;
+        private ResponsiveCat responsiveCharacter;
 
         private void Start()
         {
             agent = GetComponentInChildren<UnityEngine.AI.NavMeshAgent>();
             character = GetComponent<PetCharacter>();
-            responsiveCharacter = GetComponent<ResponsiveCharacter>();
+            responsiveCharacter = GetComponent<ResponsiveCat>();
 
             agent.updateRotation = false;
             agent.updatePosition = true;
