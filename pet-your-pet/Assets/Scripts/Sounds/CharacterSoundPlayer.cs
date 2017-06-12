@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-class PetSoundPlayer
+class CharacterSoundPlayer
 {
     private AudioSource audioSource;
     private AudioClip[] audioClips;
     private System.Random random;
 
-    public PetSoundPlayer(AudioSource audioSource, AudioClip[] audioClips)
+    public CharacterSoundPlayer(AudioSource audioSource, AudioClip[] audioClips)
     {
         this.audioSource = audioSource;
         this.audioClips = audioClips;
@@ -21,6 +21,13 @@ class PetSoundPlayer
 
             audioSource.Play();
         }
+    }
+
+    public void PlayAudioClip(AudioClip audioClip)
+    {
+        audioSource.clip = audioClip;
+
+        audioSource.Play();
     }
 
 }

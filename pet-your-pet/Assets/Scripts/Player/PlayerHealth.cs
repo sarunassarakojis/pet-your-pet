@@ -6,19 +6,20 @@ public class PlayerHealth : MonoBehaviour
     public int startingHealth = 100;
     public Slider healthSlider;
     public Image damageImage;
+    public AudioClip[] hitAudioClips;
     public AudioClip deathClip;
     public float flashSpeed = 5f;
     public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
     public int currentHealth;
 
-    private AudioSource playerAudio;
+    private CharacterSoundPlayer soundPlayer;
     private bool isDead;
     private bool damaged;
 
     void Awake()
     {
-        playerAudio = GetComponent<AudioSource>();
         currentHealth = startingHealth;
+        soundPlayer = new CharacterSoundPlayer(GetComponent<AudioSource>(), hitAudioClips);
     }
 
     void Update()
@@ -40,7 +41,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= amount;
         healthSlider.value = currentHealth;
 
-        //playerAudio.Play();
+        soundPlayer.PlayRandomAudioClip();
 
         if (currentHealth <= 0 && !isDead)
         {
@@ -52,7 +53,6 @@ public class PlayerHealth : MonoBehaviour
     {
         isDead = true;
 
-        //playerAudio.clip = deathClip;
-        //playerAudio.Play();
+        soundPlayer.PlayAudioClip(deathClip);
     }
 }

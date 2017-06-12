@@ -7,13 +7,13 @@ public class ResponsiveCat : MonoBehaviour
     public int initialCount;
     public AudioClip[] audioClips;
 
-    private PetSoundPlayer petSoundPlayer;
+    private CharacterSoundPlayer petSoundPlayer;
 
     void Start()
     {
         counter = initialCount;
         InvokeRepeating("DecrementCounter", secondsBetweenDecrements, secondsBetweenDecrements);
-        petSoundPlayer = new PetSoundPlayer(GetComponent<AudioSource>(), audioClips);
+        petSoundPlayer = new CharacterSoundPlayer(GetComponent<AudioSource>(), audioClips);
     }
 
     private void OnMouseDown()

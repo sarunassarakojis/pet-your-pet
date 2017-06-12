@@ -10,13 +10,13 @@ public class PetAttack : MonoBehaviour
     private PlayerHealth playerHealth;
     private bool playerInRange;
     private float timer;
-    private PetSoundPlayer petSoundPlayer;
+    private CharacterSoundPlayer petSoundPlayer;
 
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerHealth>();
-        petSoundPlayer = new PetSoundPlayer(GetComponent<AudioSource>(), audioClips);
+        petSoundPlayer = new CharacterSoundPlayer(GetComponent<AudioSource>(), audioClips);
     }
 
     void OnTriggerEnter(Collider other)
