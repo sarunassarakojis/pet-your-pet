@@ -33,3 +33,6 @@ ExportedObj/
 # Builds
 *.apk
 *.unitypackage
+
+# Rider dir
+*/.idea/
